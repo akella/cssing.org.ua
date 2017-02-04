@@ -1,3 +1,72 @@
 .main
 	display: block
 	+size(10px)
+
+
+@define-mixin phil
+	font-family: 'Philosopher', sans-serif
+@define-mixin didact
+	font-family: 'Didact Gothic', sans-serif
+body
+	line-height: 1.5
+	font-size: 18px  
+	+didact
+	font-weight: 400 
+section
+	max-width: 800px 
+	margin: 0 auto  
+
+// typography
+h1,h2,h3,h4,h5,h6
+	+phil
+	font-weight: 700 
+h1
+	font-size: 60px 
+	display: inline-block
+	a
+		text-decoration: none
+h3
+	font-size: 30px 
+p
+	margin-bottom: 1em 
+ul
+	margin: 1em 2em
+	list-style-type: disc  
+.published
+	display: inline-block
+	line-height: 1
+	margin-left: 10px  
+	color: #888 
+.img
+	margin: 2em -30px
+	text-align: center
+	color: #888
+	font-size: 80% 
+	span
+		display: block
+	img
+		max-width: 100% 
+.header
+	max-width: 800px 
+	position: relative
+	margin: 0 auto 
+	nav
+		text-align: justify
+		a
+			font-size: 30px 
+			margin-right: 30px 
+			display: inline-block
+	.logo
+		position: absolute
+		left: 0
+		top: 0
+		transform: rotate(-90deg) scale(.5)
+		margin-top: 260px 
+		margin-left: -60px 
+		transform-origin: 0 0  
+.footer
+	background: #f60
+	padding: 30px  
+	&__in
+		max-width: 800px 
+		margin: 0 auto 
