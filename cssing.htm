@@ -1,10 +1,71 @@
----
-title: Single page
----
-{% extends "layouts/_layout.html" %}
-
-{% block content %}
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://cssing.org.ua/?preview_theme=cssing_2017 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
+	<title>cssing  </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="akella">
+	<meta name="description" content="Блог про CSS и все что с этим связано. Новые приемы и технологии и т д.">
+	<meta name="revisit-after" content="1 Day">
+	<meta name="keywords" content="frontend, web-design, web-standards, usability, typography, graphic design, akella, CSS, XHTML, weblog, cssing, Юра Артюх, Юра, сайт, ukr.net">
+	<!--<meta name="viewport" id="iphone-viewport" content="width=480, maximum-scale=0.6667" >-->
+	<meta name="ROBOTS" content="ALL">
+	<link rel="stylesheet" media="screen" href="./cssing_files/app.css">
+	
+	<link rel="pingback" href="http://cssing.org.ua/xmlrpc.php">
+	<link rel="alternate" type="application/rss+xml" title="cssing RSS Feed" href="http://cssing.org.ua/feed/">
+	<link href="./cssing_files/css" rel="stylesheet">
+	<link rel="dns-prefetch" href="http://s.w.org/">
+		<script id="twitter-wjs" src="./cssing_files/widgets.js"></script><script async="" src="./cssing_files/analytics.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/cssing.org.ua\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.7.2"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="https://api.w.org/" href="http://cssing.org.ua/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://cssing.org.ua/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://cssing.org.ua/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.7.2">
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-122960-1', 'cssing.org.ua');
+	  ga('send', 'pageview');
+	</script>
+<script type="text/javascript" charset="utf-8" async="" src="./cssing_files/timeline.49f19f9e34b1f8ffe443c6d5e80fea48.js"></script></head>
+
+<body>
+
+	<header class="header"><div class="header__in">
+		<div class="header__logo logo"><a href="http://cssing.org.ua/">cssing</a></div>
+		<p class="description">Блог верстальщика Юрия “akella” Артюха.</p>
+		<nav>
+			<a href="http://cssing.org.ua/archive/" id="current">архив</a>
+			<!-- <a href="http://cssing.org.ua/resources/">ссылки</a>,  -->
+			<a href="http://cssing.org.ua/about/">про это</a>
+			<a href="http://cssing.org.ua/coderiver/">Coderiver</a>
+		</nav>
+	</div></header>
+		
+	
+
+
+
 
 
 <!-- BEGIN #content -->
@@ -287,9 +348,63 @@ title: Single page
 	</ul>	
 		</section>
 <!--end of #content -->
+<!--begin #secondary -->
+<aside class="aside"><div class="aside__in">
+
+<!-- begin aside__item  -->
+<div class="aside__item">
+	<h3>Twitter</h3>
+	<iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" class="twitter-timeline twitter-timeline-rendered" style="position: static; visibility: visible; display: inline-block; width: 520px; height: 300px; padding: 0px; border: none; max-width: 100%; min-width: 180px; margin-top: 0px; margin-bottom: 0px; min-height: 200px;" data-widget-id="363072899134943232" title="Twitter Timeline" src="./cssing_files/saved_resource.html"></iframe>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+<!-- end aside__item -->
+
+
+<!-- begin aside__item  -->
+<div class="aside__item">
+	<h3>Мафия</h3>
+	<ul>
+	<li><a href="http://www.coderiver.com.ua/" rel="me" title="Верстка HTML/CSS на заказ">Coderiver</a></li>
+<li><a href="http://developers.org.ua/" title="разработчики Украины">Developers.org.ua</a></li>
+<li><a href="http://www.aether.ru/" title="Блог первого русского постигшего Дзен в CSS =)">eye of the beholder</a></li>
+<li><a href="http://www.smartme.com.ua/" title="Моя компания">Smartme!</a></li>
+<li><a href="http://uggallery.audiopeace.ru/" rel="acquaintance met colleague">Александр Исаков</a></li>
+<li><a href="http://idcontent.com/" title="Отличный вебразработчик и просто хороший человек.">Андрей Стефаненко</a></li>
+<li><a href="http://pepelsbey.net/" rel="acquaintance met colleague" title="Вадим">Вадим Макеев</a></li>
+<li><a href="http://web-standards.ru/" title="славянское WSG">наше WSG</a></li>
+<li><a href="http://umade.ru/" title="сайт Никиты Вакорина">Никита Вакорин</a></li>
+<li><a href="http://lovtsevich.com/" rel="contact">Павел Ловцевич</a></li>
+	</ul>	
+</div>
+<!-- end aside__item -->
+
+
+<!-- begin aside__item  -->
+<div class="aside__item">
+	<h3>Последние 5</h3>
+	<ul>
+			<li><a href="http://cssing.org.ua/2016/12/26/blind-accessibility/">Слепая доступность</a></li>
+			<li><a href="http://cssing.org.ua/2014/03/11/coding-live/">Верстка вживую</a></li>
+			<li><a href="http://cssing.org.ua/2013/09/10/uz/">Узбекистан</a></li>
+			<li><a href="http://cssing.org.ua/2013/07/31/css-teeth/">Зубчики на CSS</a></li>
+			<li><a href="http://cssing.org.ua/2012/02/14/panic/">Префиксы, вебкит и вебстандарты</a></li>
+		</ul>
+</div>
+<!-- end aside__item -->
 
 
 
 
+</div>
+</aside>
+<!--end #secondary -->
 
-{% endblock %}
+
+<!--begin #footer -->
+<footer class="footer"><div class="footer__in">
+	<p><a href="mailto:akella.a@gmail.com" title="Написать письмо">Напишите мне</a> или <a href="http://riverco.de/">закажите верстку</a> у моей команды.</p>
+</div></footer>
+<!--end #footer -->
+<script type="text/javascript" src="./cssing_files/wp-embed.min.js"></script>
+
+<iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./cssing_files/saved_resource(1).html"></iframe></body></html>

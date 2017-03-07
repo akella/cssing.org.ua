@@ -20,58 +20,325 @@
     <!-- BEGIN #content -->
     <section class="content">
       <article class="hentry singlepost entry-1">
-        <h1 class="entry-title"><a href="http://cssing.org.ua/2016/12/26/blind-accessibility/" rel="bookmark" title="Permanent Link to Слепая доступность">Слепая доступность</a></h1><small class="published">26 December, 2016</small>
-        <p>Познакомился с парнем который не видит, но делает сайты.<span id="more-399"></span></p>
-        <h3>Мастеркласс Blind Accessibility от Дмитрия Попова</h3>
-        <p>Вчера побывал на <a href="http://www.frontend-science.com/lab/">мастер-классе незрячего <strong>разработчика</strong></a> Дмитрия Попова, он выступал на последнем <a href="https://wsd.events/2016/11/26/">киевском WSD</a>, и ребята из Frontend-Science
-          организовали отдельный развернутый воркшоп. И это было круто, немного информации, много ответов на вопросы, много реального опыта восприятия сайтов по-другому.</p>
-        <h3>Что там было</h3>
-        <p>Во-первых Дмитрий крутой перец. </p>
-        <h3>Удивительное для лично меня</h3>
-        <p>Совершенно и искренне перевернуло мой мир веб-разработчика когда Дмитрий Попов в Devtools браузера исправил HTML сайта, для того чтобы он стал более доступным для скринридера. </p>
-        <p>Подумайте об этом.</p>
-        <p>И еще немного.</p>
-        <p>Забавно, что Devtools браузера были свернуты так, что на экране их даже не было видно. Но все получилось. Потому что их и не надо было видеть. Ну да.<br> О том что Дмитрий абсолютно без проблем отредактировал html страничку в notepad, наверное
-          даже лишне говорить. Но его родной редактор в котором он пишет код: Nodepad++, как он сказал.</p>
-        <p class="img"><img src="img/a.jpg" alt=""><span>Тестируем разные сайты на доступность, под рукой у Дмитрия его “шпаргалки” набранные шрифтом Брайля</span></p>
-        <p>Во-вторых поделюсь самыми главными мыслями, которые, надеюсь, помогут вам делать более доступные сайты.</p>
-        <h3>Основное</h3>
+        <h1 class="entry-title"><a href="http://cssing.org.ua/2013/07/31/css-teeth/" rel="bookmark" title="Permanent Link to Зубчики на CSS">Зубчики на CSS</a></h1> <small class="published">31 July, 2013</small>
+        <p>Внезапно пост! Небольшой странный чисто webkit трюк который вам пригодится разве что чтобы удивить свою девушку верстальщицу.<br> <span id="more-316"></span></p>
+        <h3>Что будет</h3>
+        <p>Зззубчики:</p>
+        <div class="img"> <img src="./single_files/0.png"><br> <span>Интересный эффект чтобы показать вырезки</span> </div>
+        <p>И вот что <a href="http://cssing.org.ua/examples/cssmask">получилось в итоге</a> или то же на <a href="http://cdpn.io/cudBi">codepen</a>.</p>
+        <h3>Как это сделать</h3>
+        <p>Будем считать что у нас такой вот HTML:</p>
+        <ol class="code">
+          <li>&lt;div class=”pic”&gt;</li>
+          <li class="tab">&lt;img src=”pic.jpg”&gt;</li>
+          <li>&lt;/div&gt;</li>
+        </ol>
+        <p>Ничего такого, просто див.</p>
+        <p>Первое и самое простое, как это можно сделать, вырезать непрозрачную картинку с фоном и зубчиками, и накладывать поверх нашей.<br> Но тогда станет невозможным такой вариант</p>
+        <div class="img"> <img src="./single_files/1.png"><br> <span>Зубчики накладываются друг на друга</span> </div>
+        <h3>CSS Маски</h3>
+        <p>Да, это существует, хотя и работает пока <a href="http://caniuse.com/#search=mask">далеко не везде</a> и не полностью. Но к счастью мой проект только для webkit. Да, да, в этом месте можно завидовать.</p>
+        <p>Как это работает: мы рисуем картинку (gif, png, svg), важно только что у нее есть прозрачные и не очень пиксели-области.<br> Потом «накладываем» на блок и получается:</p>
+        <div class="img"> <img src="./single_files/mask.png"><br> <span>Как работают маски в css, иллюстрация от <a href="http://genn.org/">genn</a></span> </div>
+        <p>Все что было прозрачного в картинке маски – будет полностью удалено из результата наложения. Полупрозрачные места, соответственно – будут наполовину прозрачны.</p>
+        <p>Делается в CSS это как-то так:</p>
+        <ol class="code">
+          <li>mask-image: url(mask.png); <small>// можно и svg</small></li>
+          <li><small>// <a href="http://www.html5rocks.com/en/tutorials/masking/adobe/">или так</a>:</small></li>
+          <li>mask-image: url(mask.svg) top left / cover; <small>// можно и svg</small></li>
+        </ol>
+        <p>Можно так поступить и в нашем случае, но у нас зубы с двух сторон. Пришлось бы делать обертку и задавать вторую маску второй картинкой. Если бы не чудесное CSS свойство которое я бы может никогда и не использовал.</p>
+        <h3>-webkit-mask-box-image</h3>
+        <p>Эта штука называется страшно и непонятно, но суть ее такая же как у <a href="http://css-tricks.com/understanding-border-image/">border-image</a>. Она условно делит картинку на 9 областей, и растягивает их или повторяет, чтобы создать рамку и уголки
+          вокруг блока.<br> Только нашем случае это не рамка, а маска, вот и вся разница. Вдаваться в теорию не буду, она по ссылке.</p>
+        <p>А вот такой код сотворит магию:</p>
+        <ol class="code">
+          <li>-webkit-mask-box-image: url(mask.png) 0 3 0 3 repeat;</li>
+        </ol>
+        <p>При этом вот такая картинка mask.png:</p>
+        <div class="img"> <img src="./single_files/mask4.png"><br> <span>увеличенная в стотысячмиллионов раз</span> </div>
+        <p>Числа 0 означают что ширина бордера-маски сверху и снизу равна 0, там у нас гладкая картинка. Два других числа это ширины двух зубчиков, по 3 пикселя.</p>
+        <p>Но и этого оказалось мне мало, ведь теперь уголки у блоков не стыковались, зубчики соседних элементов не могли войти друг в друга и образовать цельный блок.</p>
+        <div class="img"> <img src="./single_files/4.png"><br> <span>Нестыковка</span> </div>
+        <p>Потому я перерисовал маску в такой вид, сдвинув второй зубец:</p>
+        <div class="img"> <img src="./single_files/mask5.png"><br> <span>Вот такая картинка для маски</span> </div>
+        <p>Это и стало финальным вариантом.</p>
+        <h3>Обводка</h3>
+        <p>Тут все скучно, несмотря на то как красиво выглядят зубчики, ни <code>border</code> ни <code>outline</code> ни <code>box-shadow</code> не обходят всю границу, выглядит это примерно так:</p>
+        <div class="img"> <img src="./single_files/fail.png"><br> <span>Бордер и тень остаются квадратными</span> </div>
+        <p>Потому пришлось идти дедовским способом известным со времен не работающего в браузерах text-shadow:</p>
+        <ol class="code">
+          <li>.pic:before{</li>
+          <li class="tab">-webkit-mask-box-image: url(mask.png) 0 3 0 3 repeat; <small>такая же маска</small></li>
+          <li class="tab">position: absolute;</li>
+          <li class="tab">top: -1px;</li>
+          <li class="tab">right: -1px;</li>
+          <li class="tab">left: -1px;</li>
+          <li class="tab">display: block;</li>
+          <li class="tab">height: 100%;</li>
+          <li class="tab">width: 100%;</li>
+          <li class="tab">padding: 1px; <small>// Это важно, делает высоту блока ровно 100% + 2px</small></li>
+          <li class="tab">background: yellow;</li>
+          <li class="tab">z-index: 2;</li>
+        </ol>
+        <p>То есть создать псевдоэлемент, точно такой же как эта картинка, с такой же маской, закрасить его каким-то цветом, и растянуть на 1px за пределы блока. Ничего гениального, но в сочетании с маской работает невероятно красиво.</p>
+        <p>Такая вот маленькая <a href="http://cssing.org.ua/examples/cssmask">приятная штука получилась</a>, надеюсь кому-то пригодится =) А вот <a href="http://cdpn.io/cudBi">codepen</a>, поиграться с ней.<br> Я до сих пор не могу удивиться больше, понадобилась
+          всего одна миниатюрная картинка для реализации того что, еще несколько лет назад казалось невозможным.</p>
+        <h3>Еще почитать на тему</h3>
         <ul>
-          <li>Вы никогда не узнаете кто использует ваш сайт.</li>
-          <li>Сделать сайт доступным, несложно, обычно они почти все доступны из коробки. Но досадные ошибки разработчиков в мелочах, или их легкомысленность могут легко сделать сервис недоступным для других людей.</li>
-          <li>Чтобы сделать сайт доступным обычно не нужно ничего переделывать. Лишь добавить немного смысла в код.</li>
-          <li>Атрибут lang значит много, и если неверно задан доставляет много неудобств. Лучше не задавать никакой, чем неверный.</li>
+          <li><a href="http://cssing.org.ua/examples/cssmask/">Финальный результат</a></li>
+          <li><a href="http://cssing.org.ua/2008/10/01/clip-it-baby/">Пост про clip, там есть фотка красивой модели</a></li>
+          <li><a href="http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariCSSRef/Articles/StandardCSSProperties.html#//apple_ref/css/property/-webkit-mask">На developer.apple.com</a></li>
+          <li><a href="http://css-tricks.com/understanding-border-image/">Как работает border-image</a></li>
+          <li><a href="http://www.html5rocks.com/en/tutorials/masking/adobe/">Еще разные идиотские маски, с анимацией</a></li>
         </ul>
-        <p>И несколько более конкретных примеров.</p>
-        <h3>Кнопки-активные элементы</h3>
-        <p><strong>90% проблем</strong> при доступности сайтов возникает из-за того что активные элементы сделаны не кнопкой и не ссылкой. Если кнопка сделана как <code>&lt;div&gt;</code> то читалка не воспринимает его как активный элемент, и не помещает
-          фокус на него при проходе страницы.</p>
-        <p>Чтобы решить эту проблему — просто используйте <code>&lt;button&gt;</code> или ссылку.</p>
-        <p>На худой конец используйте aria-label и <a href="https://www.w3.org/TR/wai-aria/roles">role</a> (<code>role="button"</code>, например). Тогда читалка поставит фокус на этот элемент, и подскажет что он активный.</p>
-        <p>Например такая проблема есть на сайте Zakaz.ua</p>
-        <p class="img"><img src="img/a3.png" alt=""><span>Кнопка сделана ссылкой без href, и читалка не воспринимает ее как управляющий элемент</span></p>
-        <h3>Навигация по заголовкам</h3>
-        <p>Оказывается очень удобно ходить по странице используя ее заголовки. На большинстве сайтов с этим все отлично, но на удивление на livejournal, заголовок статьи не является h1-h6 и тяжело найти начало текста. Вот например <a href="http://masterok.livejournal.com/3309231.html">подобная тема в живом журнале</a></p>
-        <h3>Отсылка к цветовой информации</h3>
-        <p>Речь о всяких “Зеленые места свободны”, это, причем распространяется не только на тех кто не видит, но и на тех кто видит цвета по-другому, а таких людей очень немало. Стоит дублировать эту информацию альтернативным способом.</p>
-        <p>Например, Яндекс Карты, показывая пробки, дублируют информацию о пробке(это красная заливка) плотностью стрелочек на дороге. Я и не задумывался зачем это, пока Сергей Пузанков не рассказал.</p>
-        <p class="img"><img src="img/a1.png" alt=""><span>Обратите внимание на длину стрелочек там где пробка и где её нет</span></p>
-        <h3>Атрибут lang</h3>
-        <p>Когда он задан неверно, читалка пытается читать русский текст с английской транскрипцией, и на скорости 400 слов в минуту это ужасно и вообще непонятно. Дмитрий рекомендовал задавать его даже для частей страницы, чтобы читалки экрана правильно
-          произносили слова.</p>
-        <h3>Не забывать об этом</h3>
-        <p>Это конечно не полный список, но все это несложно, нужно просто не забывать о том что вашим сайтом будут пользоваться совершенно разные люди. И прекрасно, что и поисковая оптимизация, и семантика кода, и многое другое на самом деле косвенно помогает
-          нам делать сайты более доступными для всех.</p>
-        <ul>
-          <li><a href="https://www.w3.org/WAI/intro/aria">Главная страница о доступности в веб-стандартах</a></li>
-          <li>Нашел случайно статью о том как работают <a href="https://habrahabr.ru/post/262363/">другие незрячие разработчики</a></li>
-          <li><a href="https://www.facebook.com/frontendscience/posts/2067329360160106">Пара фото с воркшопа</a></li>
-          <li><a href="http://gov.design/blog/2016/11/08/accessibility.html">Чеклист доступности сайта от разработчиков государственных сайтов в России</a></li>
-        </ul>
-        <p class="categs categs-bottom"><a href="http://cssing.org.ua/category/web-standards/" rel="category tag">веб стандарты</a>, <a href="http://cssing.org.ua/category/thoughts/" rel="category tag">Мысли</a> </p>
+        <p class="categs categs-bottom"><a href="http://cssing.org.ua/category/fun/" rel="category tag">Fun</a>, <a href="http://cssing.org.ua/category/xhtmlcss/" rel="category tag">XHTML/CSS</a> </p>
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style ">
+          <a class="addthis_button_facebook_like at300b" fb:like:layout="button_count">
+            <div class="fb-like fb_iframe_widget" data-layout="button_count" data-show_faces="false" data-share="true" data-action="like" data-width="90" data-height="25" data-font="arial" data-href="http://cssing.org.ua/2013/07/31/css-teeth/" data-send="false"
+              style="height: 25px;" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=172525162793917&amp;container_width=0&amp;font=arial&amp;height=25&amp;href=http%3A%2F%2Fcssing.org.ua%2F2013%2F07%2F31%2Fcss-teeth%2F&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;share=true&amp;show_faces=false&amp;width=90"><span style="vertical-align: bottom; width: 112px; height: 20px;"><iframe name="f1ad7aede6b80b" width="90px" height="25px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./single_files/like.html" style="border: none; visibility: visible; width: 112px; height: 20px;" class=""></iframe></span></div>
+        </a>
+        <a class="addthis_button_tweet at300b">
+          <div class="tweet_iframe_widget" style="width: 62px; height: 25px;"><span><iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="./single_files/tweet_button.b8b8e09be0884a395c5ae18831ce1cc0.en.html" style="position: static; visibility: visible; width: 61px; height: 20px;" data-url="http://cssing.org.ua/2013/07/31/css-teeth/#.WKDVQaYrq7U.twitter"></iframe></span></div>
+        </a>
+        <a class="addthis_button_google_plusone at300b" g:plusone:size="medium">
+          <div class="google_plusone_iframe_widget" style="width: 90px; height: 25px;"><span><div id="___plusone_0" style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;"><iframe ng-non-bindable="" frameborder="0" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" width="100%" id="I0_1486935362449" name="I0_1486935362449" src="./single_files/fastbutton.html" data-gapiattached="true" title="+1"></iframe></div></span></div>
+        </a>
+        <div class="atclear"></div>
+        </div>
+        <script type="text/javascript" src="./single_files/addthis_widget.js"></script>
+        <!-- AddThis Button END -->
       </article>
+      <section class="commentarea">
+        <!-- You can start editing here. -->
+        <h3 id="comments">14 комментариев к “Зубчики на CSS”</h3>
+        <dl class="commentlist"> <dt id="comment-159444">
+			<a href="http://genn.org/" rel="external nofollow" class="url">Genn</a> | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-159444">1.</a></strong> <em>31 July, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Adventure Time + MLP:FiM ^___^ /)</p>
+          </dd> <dt id="comment-159448">
+			rilian | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-159448">2.</a></strong> <em>31 July, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>вот такими дедовскими способами раньше рисовались скругленные углы у блоков ;)</p>
+          </dd> <dt id="comment-159449">
+			<a href="http://genn.org/" rel="external nofollow" class="url">Genn</a> | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-159449">3.</a></strong> <em>31 July, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Вот помню таблицы…</p>
+          </dd> <dt id="comment-159725">
+			cssfish | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-159725">4.</a></strong> <em>1 August, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>ура, блог жив! :)</p>
+          </dd> <dt id="comment-160101">
+			ilko725 | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-160101">5.</a></strong> <em>2 August, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Аж прослезился :)<br> С возвращением.<br> А способ классный, но если бы на 3 недели раньше узнал. Эх… :)</p>
+          </dd> <dt id="comment-160132">
+			Татьяна | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-160132">6.</a></strong> <em>2 August, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>О да, впечатляет!</p>
+          </dd> <dt id="comment-160766">
+			<a href="http://sapegin.ru/" rel="external nofollow" class="url">Артём Сапегин</a> | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-160766">7.</a></strong> <em>6 August, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Клёво! Ещё бы шрифт в блоге раза в два увеличить —&nbsp;не видно же ничего, мы уже старые стали :-/</p>
+          </dd> <dt id="comment-166476">
+			<a href="http://htmler.ru/" rel="external nofollow" class="url">HTMLER</a> | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-166476">8.</a></strong> <em>29 August, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Класс! Жаль, только для Webkit, но точно применимо (не только для девушки)</p>
+          </dd> <dt id="comment-180609">
+			Вадим Бородин | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-180609">9.</a></strong> <em>27 October, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Самое обидное, что если дать СВГ вместо растра, то на Ай-ОС 6 с Ретиной всё станет два раза больше и поломается.<br> Вот пример, например: <a href="http://stackoverflow.com/questions/17384172/svg-as-border-image-on-retina-screens" rel="nofollow">http://stackoverflow.com/questions/17384172/svg-as-border-image-on-retina-screens</a></p>
+          </dd> <dt id="comment-180718">
+			<a href="http://cssing.org.ua/" rel="external nofollow" class="url">akella</a> | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-180718">10.</a></strong> <em>27 October, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Но там же вроде в комментариях решение? просто переписать svg</p>
+          </dd> <dt id="comment-181160">
+			Вадим Бородин | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-181160">11.</a></strong> <em>28 October, 2013</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Не-а, ни одно предложенное решение не сработало.</p>
+          </dd> <dt id="comment-231993">
+			<a href="http://ipnet.ua/" rel="external nofollow" class="url">ipnet</a> | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-231993">12.</a></strong> <em>13 August, 2014</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Спасибо за такую статью! очень полезный для меня материал!</p>
+          </dd> <dt id="comment-360896">
+			<a href="http://design-artel.ru/" rel="external nofollow" class="url">Николай</a> | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-360896">13.</a></strong> <em>24 November, 2015</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Впечатляет, спасибо!</p>
+          </dd> <dt id="comment-410308">
+			<a href="http://webdiz.com.ua/" rel="external nofollow" class="url">webdizcomua</a> | 
+			<strong><a href="http://cssing.org.ua/2013/07/31/css-teeth/?preview_theme=cssing_2017#comment-410308">14.</a></strong> <em>29 August, 2016</em> 
+			
+
+						
+		</dt>
+          <dd>
+            <p>Спасибо очень интересная и познавательная статья. Я узнал для себя много нового хотя мне казалось что ничем уже меня нельзя удивить в css</p>
+          </dd>
+          <div class="forms">
+            <h3 id="respond">Оставить комментарий</h3>
+            <form action="http://cssing.org.ua/wp-comments-post.php" method="post" id="commentform">
+              <p>
+                <input type="text" class="inpt" name="author" id="author" value="akella" size="22" tabindex="1" title="overall type: UNKNOWN_TYPE
+    server type: NO_SERVER_DATA
+    heuristic type: UNKNOWN_TYPE
+    label: Имя
+    parseable name: author
+    field signature: 3399293859
+    form signature: 9921951533017800850" autofill-prediction="UNKNOWN_TYPE"> <label for="author">Имя </label></p>
+              <p>
+                <input type="text" name="email" class="inpt" id="email" value="akella.a@gmail.com" size="22" tabindex="2" title="overall type: EMAIL_ADDRESS
+    server type: EMAIL_ADDRESS
+    heuristic type: EMAIL_ADDRESS
+    label: E-mail (хранится в секрете)
+    parseable name: email
+    field signature: 420638584
+    form signature: 9921951533017800850" autofill-prediction="EMAIL_ADDRESS"> <label for="email">E-mail (хранится в секрете) </label></p>
+              <p>
+                <input type="text" class="inpt" name="url" id="url" value="http://cssing.org.ua" size="22" tabindex="3" title="overall type: ADDRESS_HOME_LINE1
+    server type: NO_SERVER_DATA
+    heuristic type: ADDRESS_HOME_LINE1
+    label: Адрес сайта
+    parseable name: url
+    field signature: 2165394190
+    form signature: 9921951533017800850" autofill-prediction="ADDRESS_HOME_LINE1"> <label for="url">Адрес сайта</label></p>
+              <!--<p><small><strong>XHTML:</strong> You can use these tags: &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;s&gt; &lt;strike&gt; &lt;strong&gt; </small></p>-->
+              <p>
+                <textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4" title="overall type: UNKNOWN_TYPE
+    server type: NO_SERVER_DATA
+    heuristic type: UNKNOWN_TYPE
+    label: Оставить комментарий
+    parseable name: comment
+    field signature: 815021361
+    form signature: 9921951533017800850" autofill-prediction="UNKNOWN_TYPE"></textarea>
+              </p>
+              <p><input name="submit" type="submit" id="submit" tabindex="5" value="Отправить"> <input type="hidden" name="comment_post_ID" value="316"> </p>
+              <p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="2b3ca99169"></p>
+              <p style="display: none;"></p> <input type="hidden" id="ak_js" name="ak_js" value="1486935362019"></form>
+          </div>
+        </dl>
+      </section>
     </section>
-    <!-- end conent -->
+    <!--begin #secondary -->
+    <aside class="aside">
+      <div class="aside__in">
+        <!-- begin aside__item  -->
+        <div class="aside__item">
+          <h3>Twitter</h3> <a class="twitter-timeline" href="https://twitter.com/akella" data-widget-id="363072899134943232">Tweets by @akella</a>
+          <script>
+            ! function(d, s, id)
+            {
+              var js, fjs = d.getElementsByTagName(s)[0],
+                p = /^http:/.test(d.location) ? 'http' : 'https';
+              if (!d.getElementById(id))
+              {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + "://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+              }
+            }(document, "script", "twitter-wjs");
+
+          </script>
+        </div>
+        <!-- end aside__item -->
+        <!-- begin aside__item  -->
+        <div class="aside__item">
+          <h3>Мафия</h3>
+          <ul>
+            <li><a href="http://www.coderiver.com.ua" rel="me" title="Верстка HTML/CSS на заказ">Coderiver</a></li>
+            <li><a href="http://developers.org.ua" title="разработчики Украины">Developers.org.ua</a></li>
+            <li><a href="http://www.aether.ru/" title="Блог первого русского постигшего Дзен в CSS =)">eye of the beholder</a></li>
+            <li><a href="http://www.smartme.com.ua/" title="Моя компания">Smartme!</a></li>
+            <li><a href="http://uggallery.audiopeace.ru/" rel="acquaintance met colleague">Александр Исаков</a></li>
+            <li><a href="http://idcontent.com/" title="Отличный вебразработчик и просто хороший человек.">Андрей Стефаненко</a></li>
+            <li><a href="http://pepelsbey.net/" rel="acquaintance met colleague" title="Вадим">Вадим Макеев</a></li>
+            <li><a href="http://web-standards.ru/" title="славянское WSG">наше WSG</a></li>
+            <li><a href="http://umade.ru/" title="сайт Никиты Вакорина">Никита Вакорин</a></li>
+            <li><a href="http://lovtsevich.com/" rel="contact">Павел Ловцевич</a></li>
+          </ul>
+        </div>
+        <!-- end aside__item -->
+        <!-- begin aside__item  -->
+        <div class="aside__item">
+          <h3>Последние 5</h3>
+          <ul>
+            <li><a href="http://cssing.org.ua/2016/12/26/blind-accessibility/">Слепая доступность</a></li>
+            <li><a href="http://cssing.org.ua/2014/03/11/coding-live/">Верстка вживую</a></li>
+            <li><a href="http://cssing.org.ua/2013/09/10/uz/">Узбекистан</a></li>
+            <li><a href="http://cssing.org.ua/2013/07/31/css-teeth/">Зубчики на CSS</a></li>
+            <li><a href="http://cssing.org.ua/2012/02/14/panic/">Префиксы, вебкит и вебстандарты</a></li>
+          </ul>
+        </div>
+        <!-- end aside__item -->
+      </div>
+    </aside>
+    <!--end #secondary -->
     <footer class="footer">
       <div class="footer__in"> &copy; Юрий Артюх, <a href="mailto:akella.a@gmail.com">напишите мне</a>, или <a href="#">закажите верстку</a> у моей команды. </div>
     </footer>
